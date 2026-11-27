@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ꮇᴀɢɪᴄ ᎰᎷ | Support Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: '#060913',
+                        goldAccent: '#F3C66F',
+                        cyanLuxury: '#38BDF8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #060913;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.14), transparent 55%),
+                radial-gradient(circle at 80% 35%, rgba(243, 198, 111, 0.08), transparent 45%),
+                radial-gradient(circle at 20% 75%, rgba(56, 189, 248, 0.09), transparent 50%);
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: linear-gradient(145deg, rgba(16, 23, 42, 0.85), rgba(9, 13, 26, 0.94));
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+        }
+        .gold-card {
+            background: linear-gradient(145deg, rgba(22, 27, 46, 0.9), rgba(10, 14, 28, 0.96));
+            border: 1px solid rgba(243, 198, 111, 0.35);
+            box-shadow: 0 14px 36px -8px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(243, 198, 111, 0.15);
+            backdrop-filter: blur(14px);
+        }
+        .btn-telegram {
+            background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
+            box-shadow: 0 8px 24px -4px rgba(42, 171, 238, 0.45);
+            transition: all 0.25s ease;
+        }
+        .btn-telegram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -2px rgba(42, 171, 238, 0.65);
+        }
+        .emblem-ring {
+            background: radial-gradient(circle, rgba(243, 198, 111, 0.16) 0%, rgba(56, 189, 248, 0.08) 65%, transparent 100%);
+            border: 1.5px solid rgba(243, 198, 111, 0.45);
+            box-shadow: 0 0 35px rgba(243, 198, 111, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.15);
+        }
+        .equalizer-bar {
+            width: 3px;
+            border-radius: 9999px;
+            background-color: #F3C66F;
+            transition: height 0.2s ease;
+        }
+        .playing .equalizer-bar:nth-child(1) { animation: eq 0.9s infinite ease-in-out; }
+        .playing .equalizer-bar:nth-child(2) { animation: eq 0.6s infinite ease-in-out 0.2s; }
+        .playing .equalizer-bar:nth-child(3) { animation: eq 0.8s infinite ease-in-out 0.4s; }
+        @keyframes eq {
+            0%, 100% { height: 5px; }
+            50% { height: 15px; }
+        }
+        .glyph-text {
+            letter-spacing: 0.04em;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center px-4 py-6 sm:py-10 selection:bg-cyan-500/30 selection:text-white">
+
+    <!-- Top Floating Melody Bar -->
+    <div class="w-full max-w-md mb-8">
+        <div class="glass-card rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3">
+            <button id="melodyBtn" onclick="toggleMelody()" class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-goldAccent text-xs font-semibold tracking-wider hover:bg-amber-500/20 transition cursor-pointer">
+                <span class="text-sm">♪</span>
+                <span class="glyph-text">Ꮇᴇʟᴏᴅʏ Ꮎɴ</span>
+                <span id="eqContainer" class="flex items-end gap-0.5 h-4 ml-1">
+                    <span class="equalizer-bar h-2"></span>
+                    <span class="equalizer-bar h-3"></span>
+                    <span class="equalizer-bar h-1.5"></span>
+                </span>
+            </button>
+            <span id="melodyStatus" class="text-[11px] text-slate-400 truncate">Tap Melody On for ambient sound</span>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-md flex flex-col items-center text-center space-y-6">
+
+        <!-- Brand Crest / Emblem -->
+        <div class="emblem-ring w-36 h-36 rounded-full flex flex-col items-center justify-center p-4 relative">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-300/20 to-sky-400/20 border border-amber-300/40 flex items-center justify-center mb-1.5 shadow-inner">
+                <svg class="w-5 h-5 text-goldAccent" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            </div>
+            <span class="font-bold text-sm tracking-wide text-goldAccent">Ꮇᴀɢɪᴄ ᎰᎷ</span>
+            <span class="text-[9px] font-semibold tracking-[0.18em] text-cyanLuxury uppercase mt-0.5">SUPPORT PAGE</span>
+        </div>
+
+        <!-- Non-Clickable Category Pills -->
+        <div class="flex flex-wrap items-center justify-center gap-2 max-w-sm">
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                Ꮲᴏᴄᴋᴇᴛ ᎰᎷ
+            </span>
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                Ꮶᴜᴋᴜ ᎰᎷ
+            </span>
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                ᏙɪᴅᴇᎾ
+            </span>
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                ᎪᴅᴠᎪɴᴄᴇ
+            </span>
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                Ꮀᴜʟʟ Ꮪᴇʀɪᴇs
+            </span>
+        </div>
+
+        <!-- Hero Title & Subheading -->
+        <div class="space-y-2 pt-1">
+            <h1 class="font-display text-3xl sm:text-4xl font-extrabold tracking-wider text-white leading-tight glyph-text">
+                Ꮇᴀɢɪᴄ ᎰᎷ<br/>ᏚᴜᴘᴘᎾʀᴛ Ꮲᴀɢᴇ
+            </h1>
+            <p class="text-xs font-bold tracking-[0.2em] text-goldAccent uppercase glyph-text">
+                Ꮮᴜxᴜʀʏ ᏚᴛᎾʀʏ &amp; Ꮪᴇʀɪᴇs ᎪᴅᎷɪɴ
+            </p>
+            <p class="text-[11px] font-semibold tracking-widest text-cyanLuxury glyph-text">
+                Ꮲᴏᴄᴋᴇᴛ ᎰᎷ • Ꮶᴜᴋᴜ ᎰᎷ • ᏙɪᴅᴇᎾ &amp; Ꮀᴜʟʟ Ꮪᴇʀɪᴇs
+            </p>
+        </div>
+
+        <!-- Primary CTA Card -->
+        <div class="glass-card w-full rounded-3xl p-6 space-y-5 text-center">
+            <p class="text-sm text-slate-300 leading-relaxed">
+                Exclusive <span class="text-goldAccent font-semibold">Ꮇᴀɢɪᴄ ᎰᎷ</span> collection featuring full Pocket FM story libraries (including Tamil stories &amp; complete series), Kuku FM stories, dedicated video service, advance episodes and VIP full-series luxury packs.
+            </p>
+
+            <a href="https://t.me/SilentKingKiller" target="_blank" rel="noopener noreferrer" class="btn-telegram w-full py-4 px-6 rounded-2xl flex items-center justify-center gap-3 text-white font-bold text-sm tracking-wider shadow-lg">
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                <span class="glyph-text">ᏟᎾɴᴛᴀᴄᴛ ᎪᴅᎷɪɴ Ꮎɴ ᎢᴇʟᴇɢʀᴀᎷ</span>
+            </a>
+
+            <div class="text-xs text-slate-400 font-medium">
+                @SilentKingKiller
+            </div>
+        </div>
+
+        <!-- Section 1: Magic FM Pocket FM Stories -->
+        <section class="glass-card w-full rounded-3xl p-6 text-left space-y-4">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                Ꮇᴀɢɪᴄ ᎰᎷ Ꮲᴏᴄᴋᴇᴛ ᎰᎷ ᏚᴛᎾʀɪᴇs
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-amber-500/10 border border-amber-400/30 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-cyan-500/15 border border-cyan-400/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    ᎢᴀᎷɪʟ &amp; Ꮀᴜʟʟ Ꮪᴇʀɪᴇs
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Complete Pocket FM story vault from a <span class="text-goldAccent font-semibold">trusted seller</span> including popular <span class="text-white font-medium">Tamil stories</span>, binge-worthy romance, thriller, action, and drama titles delivered in clean full-series packs.
+            </p>
+
+            <!-- Inner Sub-Cards -->
+            <div class="space-y-3 pt-1">
+                <div class="rounded-2xl bg-slate-950/75 border border-slate-800/90 p-4 space-y-1">
+                    <h3 class="text-xs font-bold text-white tracking-wider glyph-text">
+                        ᎢᴀᎷɪʟ ᏚᴛᎾʀʏ Ꮩᴀᴜʟᴛ
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Handpicked Tamil Pocket FM stories &amp; full series bundles ready for instant access.
+                    </p>
+                </div>
+                <div class="rounded-2xl bg-slate-950/75 border border-slate-800/90 p-4 space-y-1">
+                    <h3 class="text-xs font-bold text-white tracking-wider glyph-text">
+                        ᏟᎾᎷᴘʟᴇᴛᴇ Ꮲᴏᴄᴋᴇᴛ Ꮮɪʙʀᴀʀʏ
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Multi-genre Pocket FM stories with organized episode flow and fast Telegram delivery.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Kuku FM Story Catalog -->
+        <section class="glass-card w-full rounded-3xl p-6 text-left space-y-3.5">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                Ꮶᴜᴋᴜ ᎰᎷ ᏚᴛᎾʀʏ Ꮯᴀᴛᴀʟᴏɢ
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-amber-500/10 border border-amber-400/30 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-cyan-500/15 border border-cyan-400/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    Ꭺᴜᴅɪᴏ Ꮪᴇʀɪᴇs
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Premium Kuku FM story collection from a <span class="text-goldAccent font-semibold">trusted seller</span> featuring gripping mysteries, suspense dramas, fantasy sagas, and full-length audio runs available via direct admin order.
+            </p>
+        </section>
+
+        <!-- Section 3: Video Service -->
+        <section class="glass-card w-full rounded-3xl p-6 text-left space-y-3.5">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                ᏙɪᴅᴇᎾ Ꮪᴇʀᴠɪᴄᴇ
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-amber-500/10 border border-amber-400/30 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-cyan-500/15 border border-cyan-400/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    Ꮩɪᴘ ᏚᴛʀᴇᴀᎷ &amp; Ꮯʟɪᴘs
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Trusted seller video service offering curated visual releases, special video compilations, and priority custom requests handled personally by <span class="text-white font-medium">@SilentKingKiller</span>.
+            </p>
+        </section>
+
+        <!-- Section 4: Advance Episodes -->
+        <section class="glass-card w-full rounded-3xl p-6 text-left space-y-3.5">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                ᎪᴅᴠᎪɴᴄᴇ ᎬᴘɪsᎾᴅᴇs
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-amber-500/10 border border-amber-400/30 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-cyan-500/15 border border-cyan-400/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    Ꭼᴀʀʟʏ Ꭺᴄᴄᴇss
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Stay ahead of regular drops with trusted seller advance episodes on trending series—no waiting around for delayed releases when you want the next twist right away.
+            </p>
+        </section>
+
+        <!-- Section 5: Full Series & Extra Luxury -->
+        <section class="gold-card w-full rounded-3xl p-6 text-left space-y-4">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                Ꮀᴜʟʟ Ꮪᴇʀɪᴇs &amp; Ꭼxᴛʀᴀ Ꮮᴜxᴜʀʏ
+            </h2>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full bg-cyanLuxury/15 border border-cyanLuxury/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-amber-500/15 border border-amber-400/40 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭱᴏʏᴀʟ Ᏼᴜɴᴅʟᴇs
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Every trusted seller full series bundle comes upgraded with <span class="text-goldAccent font-semibold">extra luxury perks</span>—complete episode chains, bonus extras, priority VIP support, and bundle pricing when ordering full series or multi-pack combinations.
+            </p>
+
+            <!-- Order Box -->
+            <div class="rounded-2xl bg-slate-950/80 border border-amber-400/25 p-5 space-y-4 mt-2">
+                <div class="space-y-1">
+                    <h3 class="text-xs font-bold text-white tracking-wider glyph-text">
+                        Ꮤᴀɴᴛ Ꮀᴜʟʟ Ꮪᴇʀɪᴇs Ꮎʀ ᏟᴜsᴛᴏᎷ Ꮲᴀᴄᴋ?
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Message the admin directly on Telegram with your story or episode request.
+                    </p>
+                </div>
+
+                <a href="https://t.me/SilentKingKiller" target="_blank" rel="noopener noreferrer" class="btn-telegram w-full py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs tracking-widest">
+                    <span class="glyph-text">Ꮎʀᴅᴇʀ ɴᎾᴡ</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="w-full pt-4 pb-8 text-center space-y-2 border-t border-slate-800/70">
+            <p class="text-[11px] text-slate-400 font-medium tracking-wider glyph-text">
+                © 2026 Ꮇᴀɢɪᴄ ᎰᎷ ᏚᴜᴘᴘᎾʀᴛ Ꮲᴀɢᴇ
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400">
+                <span class="glyph-text">Ꭰᴇᴠᴇʟᴏᴘᴇᴅ Ᏼʏ ɴᴇxᎾ</span>
+                <a href="https://t.me/NexoDeveloper" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-400/35 text-sky-300 hover:bg-sky-500/25 transition font-medium">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                    </svg>
+                    <span>t.me/NexoDeveloper</span>
+                </a>
+            </div>
+            <p class="text-[10px] text-slate-500 tracking-widest uppercase glyph-text">
+                Ꮮᴜxᴜʀʏ ᏚᴜᴘᴘᎾʀᴛ Ꮲᴏʀᴛᴀʟ
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Web Audio API Ambient Melody Engine -->
+    <script>
+        let audioCtx = null;
+        let isPlaying = false;
+        let melodyInterval = null;
+
+        const notes = [261.63, 329.63, 392.00, 493.88, 523.25, 392.00, 329.63, 293.66];
+        let step = 0;
+
+        function playPadNote(freq) {
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.035, now + 0.6);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.4);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + 2.5);
+        }
+
+        function startMelody() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            isPlaying = true;
+            document.getElementById('eqContainer').classList.add('playing');
+            document.getElementById('melodyStatus').textContent = 'Playing background song';
+            playPadNote(notes[step % notes.length]);
+            step++;
+            melodyInterval = setInterval(() => {
+                if (isPlaying) {
+                    playPadNote(notes[step % notes.length]);
+                    step++;
+                }
+            }, 1800);
+        }
+
+        function stopMelody() {
+            isPlaying = false;
+            clearInterval(melodyInterval);
+            document.getElementById('eqContainer').classList.remove('playing');
+            document.getElementById('melodyStatus').textContent = 'Background melody paused';
+        }
+
+        function toggleMelody() {
+            if (isPlaying) {
+                stopMelody();
+            } else {
+                startMelody();
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const unlockAudio = () => {
+                if (!isPlaying) {
+                    startMelody();
+                }
+                document.removeEventListener('click', unlockAudio);
+                document.removeEventListener('touchstart', unlockAudio);
+            };
+            document.addEventListener('click', unlockAudio, { once: true });
+            document.addEventListener('touchstart', unlockAudio, { once: true });
+        });
+    </script>
+</body>
+</html>
