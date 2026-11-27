@@ -1,792 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ᎷᎪᏀᏆᏟ ᎰᎷ ᏚᏌᏢᏢᎾᎡᎢ ᏢᎪᏀᎬ — ᏞᏌᏆᏌᎡᎩ ᏟᎪᎢᎪᏞᎾᏀ &amp; ᎪᎠᎷᏆᏁ</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Font: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            obsidianVoid: '#030911',
-            obsidianDeep: '#061220',
-            luxuryCard: '#0a1829',
-            luxurySurface: '#0f2238',
-            cyanLuxury: '#22c1f5',
-            cyanGlow: '#5ce1ff',
-            goldAccent: '#f2c14e',
-            goldSoft: '#e5b85c',
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
-
-  <style>
-    /* Base obsidian-blue and gold/cyan luxury aesthetic */
-    html, body {
-      min-height: 100vh;
-      margin: 0;
-      background-color: #030911;
-      color: #edf6fc;
-      overflow-x: hidden;
-    }
-
-    /* Animated glowing ambient background */
-    @keyframes ambientPulse {
-      0%, 100% {
-        transform: translate3d(0, 0, 0) scale(1);
-        opacity: 0.85;
-      }
-      50% {
-        transform: translate3d(0, -14px, 0) scale(1.06);
-        opacity: 1;
-      }
-    }
-
-    .luxury-bg {
-      position: relative;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(34, 193, 245, 0.16), transparent 50%),
-        radial-gradient(circle at 82% 28%, rgba(242, 193, 78, 0.10), transparent 44%),
-        radial-gradient(circle at 18% 82%, rgba(20, 125, 175, 0.14), transparent 48%),
-        linear-gradient(180deg, #030911 0%, #061220 52%, #030911 100%);
-    }
-
-    .ambient-orb {
-      position: fixed;
-      border-radius: 9999px;
-      pointer-events: none;
-      filter: blur(68px);
-      z-index: 0;
-      animation: ambientPulse 8s ease-in-out infinite;
-    }
-
-    .ambient-orb-cyan {
-      width: 24rem;
-      height: 24rem;
-      top: 6%;
-      left: 50%;
-      margin-left: -12rem;
-      background: rgba(34, 193, 245, 0.14);
-    }
-
-    .ambient-orb-gold {
-      width: 18rem;
-      height: 18rem;
-      bottom: 12%;
-      right: 8%;
-      background: rgba(242, 193, 78, 0.10);
-      animation-delay: 3.5s;
-    }
-
-    /* Glassmorphic obsidian card with dual cyan + subtle gold edge */
-    .luxury-card {
-      position: relative;
-      z-index: 1;
-      background: linear-gradient(180deg, rgba(12, 27, 46, 0.96) 0%, rgba(8, 20, 35, 0.98) 100%);
-      border: 1px solid rgba(92, 225, 255, 0.20);
-      box-shadow:
-        0 28px 65px -18px rgba(0, 0, 0, 0.9),
-        0 0 46px -12px rgba(34, 193, 245, 0.24),
-        inset 0 1px 0 0 rgba(242, 193, 78, 0.22);
-    }
-
-    /* Typographic royal emblem circle with custom SVG Magic FM logo */
-    .typographic-emblem {
-      background:
-        radial-gradient(circle at 30% 22%, rgba(242, 193, 78, 0.18), transparent 55%),
-        radial-gradient(circle at 65% 75%, rgba(34, 193, 245, 0.24), rgba(5, 16, 29, 0.96) 78%);
-      border: 1.5px solid rgba(242, 193, 78, 0.45);
-      box-shadow:
-        0 0 32px rgba(34, 193, 245, 0.26),
-        0 0 18px rgba(242, 193, 78, 0.16),
-        inset 0 0 20px rgba(34, 193, 245, 0.12);
-    }
-
-    .glyph-text {
-      letter-spacing: 0.11em;
-    }
-
-    /* Clean non-copyable blue/cyan luxury CTA button */
-    .telegram-cta-btn {
-      background: linear-gradient(135deg, #2ac7fa 0%, #1198dc 62%, #0b78b8 100%);
-      border: 1px solid rgba(242, 193, 78, 0.45);
-      box-shadow:
-        0 12px 30px -6px rgba(17, 152, 220, 0.62),
-        0 0 20px -4px rgba(242, 193, 78, 0.28);
-      user-select: none;
-      -webkit-user-select: none;
-      transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .telegram-cta-btn:hover {
-      filter: brightness(1.08);
-      transform: translateY(-1px);
-      box-shadow:
-        0 16px 36px -6px rgba(34, 193, 245, 0.75),
-        0 0 24px -3px rgba(242, 193, 78, 0.42);
-    }
-
-    .telegram-cta-btn:active {
-      transform: translateY(0);
-    }
-
-    .gold-pill-badge {
-      background: rgba(12, 34, 56, 0.72);
-      border: 1px solid rgba(56, 189, 248, 0.24);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      transition: border-color 0.2s ease, background-color 0.2s ease;
-    }
-
-    .gold-pill-badge:hover {
-      border-color: rgba(92, 225, 255, 0.48);
-      background: rgba(16, 45, 74, 0.85);
-    }
-
-    .catalog-item-card {
-      background: rgba(6, 17, 30, 0.78);
-      border: 1px solid rgba(92, 225, 255, 0.14);
-      transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
-    }
-
-    .catalog-item-card:hover {
-      border-color: rgba(242, 193, 78, 0.42);
-      background: rgba(11, 27, 46, 0.92);
-      transform: translateY(-1px);
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ꮇᴀɢɪᴄ ᎰᎷ | Support Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: '#060913',
+                        goldAccent: '#F3C66F',
+                        cyanLuxury: '#38BDF8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #060913;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.14), transparent 55%),
+                radial-gradient(circle at 80% 35%, rgba(243, 198, 111, 0.08), transparent 45%),
+                radial-gradient(circle at 20% 75%, rgba(56, 189, 248, 0.09), transparent 50%);
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: linear-gradient(145deg, rgba(16, 23, 42, 0.85), rgba(9, 13, 26, 0.94));
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+        }
+        .gold-card {
+            background: linear-gradient(145deg, rgba(22, 27, 46, 0.9), rgba(10, 14, 28, 0.96));
+            border: 1px solid rgba(243, 198, 111, 0.35);
+            box-shadow: 0 14px 36px -8px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(243, 198, 111, 0.15);
+            backdrop-filter: blur(14px);
+        }
+        .btn-telegram {
+            background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
+            box-shadow: 0 8px 24px -4px rgba(42, 171, 238, 0.45);
+            transition: all 0.25s ease;
+        }
+        .btn-telegram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -2px rgba(42, 171, 238, 0.65);
+        }
+        .emblem-ring {
+            background: radial-gradient(circle, rgba(243, 198, 111, 0.16) 0%, rgba(56, 189, 248, 0.08) 65%, transparent 100%);
+            border: 1.5px solid rgba(243, 198, 111, 0.45);
+            box-shadow: 0 0 35px rgba(243, 198, 111, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.15);
+        }
+        .equalizer-bar {
+            width: 3px;
+            border-radius: 9999px;
+            background-color: #F3C66F;
+            transition: height 0.2s ease;
+        }
+        .playing .equalizer-bar:nth-child(1) { animation: eq 0.9s infinite ease-in-out; }
+        .playing .equalizer-bar:nth-child(2) { animation: eq 0.6s infinite ease-in-out 0.2s; }
+        .playing .equalizer-bar:nth-child(3) { animation: eq 0.8s infinite ease-in-out 0.4s; }
+        @keyframes eq {
+            0%, 100% { height: 5px; }
+            50% { height: 15px; }
+        }
+        .glyph-text {
+            letter-spacing: 0.04em;
+        }
+    </style>
 </head>
-<body class="luxury-bg font-sans antialiased flex flex-col justify-between min-h-screen px-4 py-6 sm:px-6">
-  <!-- Animated glowing orbs -->
-  <div class="ambient-orb ambient-orb-cyan" aria-hidden="true"></div>
-  <div class="ambient-orb ambient-orb-gold" aria-hidden="true"></div>
+<body class="min-h-screen flex flex-col items-center px-4 py-6 sm:py-10 selection:bg-cyan-500/30 selection:text-white">
 
-  <!-- Top Ambient Audio Bar -->
-  <header class="w-full max-w-2xl mx-auto mb-6 relative z-10">
-    <div class="luxury-card rounded-2xl px-4 py-3 flex flex-col gap-3">
-      <div class="flex flex-wrap items-center justify-between gap-2.5">
-        <!-- Music Autoplay / Mute / Play Toggle -->
-        <div class="flex items-center gap-2.5 min-w-0">
-          <button
-            id="audioToggleBtn"
-            type="button"
-            aria-label="Toggle background melody"
-            class="inline-flex items-center gap-2 rounded-xl border border-goldAccent/45 bg-luxurySurface px-3 py-1.5 text-xs font-semibold text-goldAccent hover:bg-luxurySurface/80 transition cursor-pointer"
-          >
-            <svg id="audioIcon" class="h-4 w-4 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6Z" />
-            </svg>
-            <span id="audioStatusGlyph" class="glyph-text" data-glyph="MELODY ON">ᎷᎬᏞᎾᎠᎩ ᎾᏁ</span>
-          </button>
-          <span id="audioHintText" class="text-[11px] text-slate-300 truncate">
-            Auto-playing ambient song on entry
-          </span>
+    <!-- Top Floating Melody Bar -->
+    <div class="w-full max-w-md mb-8">
+        <div class="glass-card rounded-2xl px-4 py-2.5 flex items-center justify-between gap-3">
+            <button id="melodyBtn" onclick="toggleMelody()" class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-goldAccent text-xs font-semibold tracking-wider hover:bg-amber-500/20 transition cursor-pointer">
+                <span class="text-sm">♪</span>
+                <span class="glyph-text">Ꮇᴇʟᴏᴅʏ Ꮎɴ</span>
+                <span id="eqContainer" class="flex items-end gap-0.5 h-4 ml-1">
+                    <span class="equalizer-bar h-2"></span>
+                    <span class="equalizer-bar h-3"></span>
+                    <span class="equalizer-bar h-1.5"></span>
+                </span>
+            </button>
+            <span id="melodyStatus" class="text-[11px] text-slate-400 truncate">Tap Melody On for ambient sound</span>
         </div>
-      </div>
     </div>
-  </header>
 
-  <!-- Main Centered Luxury Admin & Selling Profile Card -->
-  <main class="w-full max-w-2xl mx-auto my-auto space-y-6 relative z-10">
-    <section
-      aria-label="Magic FM Luxury Admin Card"
-      class="luxury-card rounded-[30px] px-6 py-8 sm:px-10 sm:py-10 text-center"
-    >
-      <!-- Circular Emblem Frame with Custom SVG Magic FM Crown & Broadcast Wave Logo -->
-      <div class="mb-5 flex justify-center">
-        <div class="typographic-emblem h-32 w-32 sm:h-36 sm:w-36 rounded-full flex flex-col items-center justify-center px-4 text-center gap-1">
-          <!-- Custom Inline SVG Magic FM Luxury Crown & Broadcast Emblem -->
-          <svg class="h-10 w-10 sm:h-11 sm:w-11 shrink-0 drop-shadow-[0_0_10px_rgba(34,193,245,0.65)]" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="magicGoldGrad" x1="12" y1="10" x2="52" y2="54" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#FFE18D" />
-                <stop offset="55%" stop-color="#F2C14E" />
-                <stop offset="100%" stop-color="#C88E24" />
-              </linearGradient>
-              <linearGradient id="magicCyanGrad" x1="14" y1="18" x2="50" y2="48" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#7AE8FF" />
-                <stop offset="100%" stop-color="#19A9E6" />
-              </linearGradient>
-            </defs>
-            <!-- Outer FM broadcast arcs -->
-            <path d="M16 42C12.5 37 12.5 27 16 22" stroke="url(#magicCyanGrad)" stroke-width="2.6" stroke-linecap="round" />
-            <path d="M48 42C51.5 37 51.5 27 48 22" stroke="url(#magicCyanGrad)" stroke-width="2.6" stroke-linecap="round" />
-            <!-- Luxury Crown + Radio Spark -->
-            <path d="M19 39L22 23L32 31L42 23L45 39H19Z" fill="url(#magicGoldGrad)" stroke="#FFF2C2" stroke-width="1.2" stroke-linejoin="round" />
-            <circle cx="32" cy="17" r="3" fill="url(#magicCyanGrad)" />
-            <path d="M32 10V12.5M25.5 13L27.3 14.8M38.5 13L36.7 14.8" stroke="url(#magicGoldGrad)" stroke-width="2" stroke-linecap="round" />
-            <!-- Equalizer / Soundwave base bar -->
-            <path d="M22 44H42" stroke="url(#magicCyanGrad)" stroke-width="2.8" stroke-linecap="round" />
-          </svg>
-          <span class="text-sm sm:text-base font-extrabold tracking-widest text-goldAccent leading-none">
-            Magic FM
-          </span>
-          <span class="text-[9px] sm:text-[10px] font-bold tracking-wider text-cyanGlow glyph-text leading-tight" data-glyph="SUPPORT PAGE">
-            ᏚᏌᏢᏢᎾᎡᎢ ᏢᎪᏀᎬ
-          </span>
-        </div>
-      </div>
+    <!-- Main Container -->
+    <main class="w-full max-w-md flex flex-col items-center text-center space-y-6">
 
-      <!-- Horizontal Row of Clickable Small Pill Badges Opening https://t.me/NexoDeveloper -->
-      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-7">
-        <a
-          href="https://t.me/NexoDeveloper"
-          target="_blank"
-          rel="noopener noreferrer"
-          draggable="false"
-          class="gold-pill-badge rounded-full px-4 py-1.5 text-xs sm:text-[13px] font-medium text-cyanGlow glyph-text cursor-pointer"
-          data-glyph="POCKET FM"
-        >
-          ᏢᎾᏟᏦᎬᎢ ᎰᎷ
-        </a>
-        <a
-          href="https://t.me/NexoDeveloper"
-          target="_blank"
-          rel="noopener noreferrer"
-          draggable="false"
-          class="gold-pill-badge rounded-full px-4 py-1.5 text-xs sm:text-[13px] font-medium text-cyanGlow glyph-text cursor-pointer"
-          data-glyph="KUKU FM"
-        >
-          ᏦᏌᏦᏌ ᎰᎷ
-        </a>
-        <a
-          href="https://t.me/NexoDeveloper"
-          target="_blank"
-          rel="noopener noreferrer"
-          draggable="false"
-          class="gold-pill-badge rounded-full px-4 py-1.5 text-xs sm:text-[13px] font-medium text-cyanGlow glyph-text cursor-pointer"
-          data-glyph="VIDEO"
-        >
-          ᏙᏆᎠᎬᎾ
-        </a>
-        <a
-          href="https://t.me/NexoDeveloper"
-          target="_blank"
-          rel="noopener noreferrer"
-          draggable="false"
-          class="gold-pill-badge rounded-full px-4 py-1.5 text-xs sm:text-[13px] font-medium text-cyanGlow glyph-text cursor-pointer"
-          data-glyph="ADVANCE"
-        >
-          ᎪᎠᏙᎪᏁᏟᎬ
-        </a>
-        <a
-          href="https://t.me/NexoDeveloper"
-          target="_blank"
-          rel="noopener noreferrer"
-          draggable="false"
-          class="gold-pill-badge rounded-full px-4 py-1.5 text-xs sm:text-[13px] font-medium text-cyanGlow glyph-text cursor-pointer"
-          data-glyph="FULL SERIES"
-        >
-          ᎰᏌᏞᏞ ᏚᎬᎡᏆᎬᏚ
-        </a>
-      </div>
-
-      <!-- Primary Brand Title & Subtitles -->
-      <div class="mb-4">
-        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-wide text-cyanGlow glyph-text leading-tight" data-glyph="MAGIC FM SUPPORT PAGE">
-          ᎷᎪᏀᏆᏟ ᎰᎷ ᏚᏌᏢᏢᎾᎡᎢ ᏢᎪᏀᎬ
-        </h1>
-        <p class="mt-2 text-sm sm:text-lg font-bold text-goldAccent glyph-text" data-glyph="LUXURY STORY & SERIES ADMIN">
-          ᏞᏌᏆᏌᎡᎩ ᏚᎢᎾᎡᎩ &amp; ᏚᎬᎡᏆᎬᏚ ᎪᎠᎷᏆᏁ
-        </p>
-        <p class="mt-1.5 text-xs sm:text-sm font-medium text-cyanGlow/90 glyph-text" data-glyph="POCKET FM • KUKU FM • VIDEO & FULL SERIES">
-          ᏢᎾᏟᏦᎬᎢ ᎰᎷ • ᏦᏌᏦᏌ ᎰᎷ • ᏙᏆᎠᎬᎾ &amp; ᎰᏌᏞᏞ ᏚᎬᎡᏆᎬᏚ
-        </p>
-      </div>
-
-      <!-- Luxury Selling Summary -->
-      <p class="mx-auto max-w-xl text-sm sm:text-[15px] leading-relaxed text-slate-300 mb-7">
-        Exclusive <span class="text-goldAccent font-semibold">Magic FM</span> collection featuring full Pocket FM story libraries (including Tamil stories &amp; complete series), Kuku FM stories, dedicated video service, advance episodes, and VIP full-series luxury packs.
-      </p>
-
-      <!-- Prominent Non-Copyable Blue/Cyan Telegram CTA Button -->
-      <div class="flex flex-col items-center justify-center gap-2.5">
-        <a
-          id="contactAdminBtn"
-          href="https://t.me/SilentKingKiller"
-          target="_blank"
-          rel="noopener noreferrer"
-          draggable="false"
-          class="telegram-cta-btn inline-flex w-full sm:w-auto min-w-[275px] items-center justify-center gap-2.5 rounded-full px-8 py-4 text-sm sm:text-base font-bold text-white"
-        >
-          <!-- Telegram Paper-Plane SVG Icon -->
-          <svg class="h-5 w-5 shrink-0 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21.944 4.668a1.5 1.5 0 0 0-1.622-.243L3.16 11.028a1.5 1.5 0 0 0 .11 2.84l4.15 1.33 2.13 5.68a1.5 1.5 0 0 0 2.57.44l2.44-2.82 4.22 3.1a1.5 1.5 0 0 0 2.36-.9l2.42-14.2a1.5 1.5 0 0 0-.48-1.41Zm-3.15 3.16-7.79 7.05-.3 3.43-1.45-3.87 9.54-6.61Z" />
-          </svg>
-          <span class="glyph-text" data-glyph="CONTACT ADMIN ON TELEGRAM">ᏟᎾᏁᎢᎪᏟᎢ ᎪᎠᎷᏆᏁ ᎾᏁ ᎢᎬᏞᎬᏀᎡᎪᎷ</span>
-        </a>
-        <span class="text-xs font-medium text-cyanGlow/90 select-none">@SilentKingKiller</span>
-      </div>
-    </section>
-
-    <!-- Market Catalog Sections with Trusted Seller Badges -->
-    <section aria-label="Magic FM Market Catalog Sections" class="space-y-4">
-      <!-- 1) Magic FM Pocket FM Story Catalog -->
-      <div class="luxury-card rounded-3xl p-5 sm:p-6 text-left">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 class="text-base sm:text-lg font-bold text-goldAccent glyph-text" data-glyph="MAGIC FM POCKET FM STORIES">
-            ᎷᎪᏀᏆᏟ ᎰᎷ ᏢᎾᏟᏦᎬᎢ ᎰᎷ ᏚᎢᎾᎡᏆᎬᏚ
-          </h2>
-          <div class="flex flex-wrap items-center gap-1.5">
-            <span class="rounded-full bg-goldAccent/20 border border-goldAccent/45 px-3 py-0.5 text-[11px] font-bold text-goldAccent glyph-text" data-glyph="TRUSTED SELLER">
-              ᎢᎡᏌᏚᎢᎬᎠ ᏚᎬᏞᏞᎬᎡ
-            </span>
-            <span class="rounded-full bg-cyanLuxury/15 border border-cyanLuxury/35 px-3 py-0.5 text-[11px] font-semibold text-cyanGlow glyph-text" data-glyph="TAMIL & FULL SERIES">
-              ᎢᎪᎷᏆᏞ &amp; ᎰᏌᏞᏞ ᏚᎬᎡᏆᎬᏚ
-            </span>
-          </div>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-          Complete Pocket FM story vault from a <span class="text-goldAccent font-semibold">trusted seller</span> including popular <span class="text-white font-medium">Tamil stories</span>, binge-worthy romance, thriller, action, and drama titles delivered in clean full-series packs.
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          <div class="catalog-item-card rounded-2xl p-3.5">
-            <div class="text-xs font-bold text-cyanGlow glyph-text" data-glyph="TAMIL STORY VAULT">ᎢᎪᎷᏆᏞ ᏚᎢᎾᎡᎩ ᏙᎪᏌᏞᎢ</div>
-            <p class="text-xs text-slate-400 mt-1">Handpicked Tamil Pocket FM stories &amp; full series bundles ready for instant access.</p>
-          </div>
-          <div class="catalog-item-card rounded-2xl p-3.5">
-            <div class="text-xs font-bold text-goldAccent glyph-text" data-glyph="COMPLETE POCKET LIBRARY">ᏟᎾᎷᏢᏞᎬᎢᎬ ᏢᎾᏟᏦᎬᎢ ᏞᏆᏴᎡᎪᎡᎩ</div>
-            <p class="text-xs text-slate-400 mt-1">Multi-genre Pocket FM stories with organized episode flow and fast Telegram delivery.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2) Kuku FM Story Catalog -->
-      <div class="luxury-card rounded-3xl p-5 sm:p-6 text-left">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 class="text-base sm:text-lg font-bold text-cyanGlow glyph-text" data-glyph="KUKU FM STORY CATALOG">
-            ᏦᏌᏦᏌ ᎰᎷ ᏚᎢᎾᎡᎩ ᏟᎪᎢᎪᏞᎾᏀ
-          </h2>
-          <div class="flex flex-wrap items-center gap-1.5">
-            <span class="rounded-full bg-goldAccent/20 border border-goldAccent/45 px-3 py-0.5 text-[11px] font-bold text-goldAccent glyph-text" data-glyph="TRUSTED SELLER">
-              ᎢᎡᏌᏚᎢᎬᎠ ᏚᎬᏞᏞᎬᎡ
-            </span>
-            <span class="rounded-full bg-cyanLuxury/15 border border-cyanLuxury/35 px-3 py-0.5 text-[11px] font-semibold text-cyanGlow glyph-text" data-glyph="AUDIO SERIES">
-              ᎪᏌᎠᏆᎾ ᏚᎬᎡᏆᎬᏚ
-            </span>
-          </div>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          Premium Kuku FM story collection from a <span class="text-goldAccent font-semibold">trusted seller</span> featuring gripping mysteries, suspense dramas, fantasy sagas, and full-length audio runs available via direct admin order.
-        </p>
-      </div>
-
-      <!-- 3) Video Service -->
-      <div class="luxury-card rounded-3xl p-5 sm:p-6 text-left">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 class="text-base sm:text-lg font-bold text-goldAccent glyph-text" data-glyph="VIDEO SERVICE">
-            ᏙᏆᎠᎬᎾ ᏚᎬᎡᏙᏆᏟᎬ
-          </h2>
-          <div class="flex flex-wrap items-center gap-1.5">
-            <span class="rounded-full bg-goldAccent/20 border border-goldAccent/45 px-3 py-0.5 text-[11px] font-bold text-goldAccent glyph-text" data-glyph="TRUSTED SELLER">
-              ᎢᎡᏌᏚᎢᎬᎠ ᏚᎬᏞᏞᎬᎡ
-            </span>
-            <span class="rounded-full bg-cyanLuxury/15 border border-cyanLuxury/35 px-3 py-0.5 text-[11px] font-semibold text-cyanGlow glyph-text" data-glyph="VIP STREAM & CLIPS">
-              ᏙᏆᏢ ᏚᎢᎡᎬᎪᎷ &amp; ᏟᏞᏆᏢᏚ
-            </span>
-          </div>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          Trusted seller video service offering curated visual releases, special video compilations, and priority custom requests handled personally by <span class="text-goldAccent font-medium">@SilentKingKiller</span>.
-        </p>
-      </div>
-
-      <!-- 4) Advance Episodes -->
-      <div class="luxury-card rounded-3xl p-5 sm:p-6 text-left">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 class="text-base sm:text-lg font-bold text-cyanGlow glyph-text" data-glyph="ADVANCE EPISODES">
-            ᎪᎠᏙᎪᏁᏟᎬ ᎬᏢᏆᏚᎾᎠᎬᏚ
-          </h2>
-          <div class="flex flex-wrap items-center gap-1.5">
-            <span class="rounded-full bg-goldAccent/20 border border-goldAccent/45 px-3 py-0.5 text-[11px] font-bold text-goldAccent glyph-text" data-glyph="TRUSTED SELLER">
-              ᎢᎡᏌᏚᎢᎬᎠ ᏚᎬᏞᏞᎬᎡ
-            </span>
-            <span class="rounded-full bg-cyanLuxury/15 border border-cyanLuxury/35 px-3 py-0.5 text-[11px] font-semibold text-cyanGlow glyph-text" data-glyph="EARLY ACCESS">
-              ᎬᎪᎡᏞᎩ ᎪᏟᏟᎬᏚᏚ
-            </span>
-          </div>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          Stay ahead of regular drops with trusted seller advance episodes on trending series—no waiting around for delayed releases when you want the next twist right away.
-        </p>
-      </div>
-
-      <!-- 5) Full Series & Extra Luxury Bundles -->
-      <div class="luxury-card rounded-3xl p-5 sm:p-6 text-left">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h2 class="text-base sm:text-lg font-bold text-goldAccent glyph-text" data-glyph="FULL SERIES & EXTRA LUXURY">
-            ᎰᏌᏞᏞ ᏚᎬᎡᏆᎬᏚ &amp; ᎬᏆᎢᎡᎪ ᏞᏌᏆᏌᎡᎩ
-          </h2>
-          <div class="flex flex-wrap items-center gap-1.5">
-            <span class="rounded-full bg-cyanLuxury/15 border border-cyanLuxury/35 px-3 py-0.5 text-[11px] font-semibold text-cyanGlow glyph-text" data-glyph="TRUSTED SELLER">
-              ᎢᎡᏌᏚᎢᎬᎠ ᏚᎬᏞᏞᎬᎡ
-            </span>
-            <span class="rounded-full bg-goldAccent/20 border border-goldAccent/45 px-3 py-0.5 text-[11px] font-bold text-goldAccent glyph-text" data-glyph="ROYAL BUNDLES">
-              ᎡᎾᎩᎪᏞ ᏴᏌᏁᎠᏞᎬᏚ
-            </span>
-          </div>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-          Every trusted seller full series bundle comes upgraded with <span class="text-goldAccent font-semibold">extra luxury perks</span>—complete episode chains, bonus extras, priority VIP support, and bundle pricing when ordering full series or multi-pack combinations.
-        </p>
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 rounded-2xl bg-obsidianVoid/80 border border-goldAccent/25 p-4">
-          <div>
-            <div class="text-xs sm:text-sm font-bold text-white glyph-text" data-glyph="WANT FULL SERIES OR CUSTOM PACK?">
-              ᎳᎪᏁᎢ ᎰᏌᏞᏞ ᏚᎬᎡᏆᎬᏚ ᎾᎡ ᏟᏌᏚᎢᎾᎷ ᏢᎪᏟᏦ?
+        <!-- Brand Crest / Emblem -->
+        <div class="emblem-ring w-36 h-36 rounded-full flex flex-col items-center justify-center p-4 relative">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-300/20 to-sky-400/20 border border-amber-300/40 flex items-center justify-center mb-1.5 shadow-inner">
+                <svg class="w-5 h-5 text-goldAccent" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">
-              Message the admin directly on Telegram with your story or episode request.
-            </p>
-          </div>
-          <a
-            href="https://t.me/SilentKingKiller"
-            target="_blank"
-            rel="noopener noreferrer"
-            draggable="false"
-            class="telegram-cta-btn shrink-0 inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-xs font-bold text-white glyph-text"
-            data-glyph="ORDER NOW"
-          >
-            ᎾᎡᎠᎬᎡ ᏁᎾᎳ
-          </a>
+            <span class="font-bold text-sm tracking-wide text-goldAccent">Ꮇᴀɢɪᴄ ᎰᎷ</span>
+            <span class="text-[9px] font-semibold tracking-[0.18em] text-cyanLuxury uppercase mt-0.5">SUPPORT PAGE</span>
         </div>
-      </div>
-    </section>
-  </main>
 
-  <!-- Footer -->
-  <footer class="w-full max-w-2xl mx-auto mt-8 text-center space-y-1.5 relative z-10">
-    <p class="text-xs font-semibold tracking-widest text-goldSoft glyph-text">
-      © 2026 <span data-glyph="MAGIC FM SUPPORT PAGE">ᎷᎪᏀᏆᏟ ᎰᎷ ᏚᏌᏢᏢᎾᎡᎢ ᏢᎪᏀᎬ</span>
-    </p>
-    <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-cyanGlow/90">
-      <span class="glyph-text" data-glyph="DEVELOPED BY NEXO">ᎠᎬᏙᎬᏞᎾᏢᎬᎠ ᏴᎩ ᏁᎬᏆᎾ</span>
-      <a
-        href="https://t.me/NexoDeveloper"
-        target="_blank"
-        rel="noopener noreferrer"
-        draggable="false"
-        class="inline-flex items-center gap-1.5 rounded-lg border border-cyanGlow/35 bg-luxurySurface/90 px-2.5 py-1 text-goldAccent hover:border-goldAccent/60 hover:bg-luxurySurface transition"
-      >
-        <svg class="h-3.5 w-3.5 shrink-0 fill-current text-cyanGlow" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M21.944 4.668a1.5 1.5 0 0 0-1.622-.243L3.16 11.028a1.5 1.5 0 0 0 .11 2.84l4.15 1.33 2.13 5.68a1.5 1.5 0 0 0 2.57.44l2.44-2.82 4.22 3.1a1.5 1.5 0 0 0 2.36-.9l2.42-14.2a1.5 1.5 0 0 0-.48-1.41Zm-3.15 3.16-7.79 7.05-.3 3.43-1.45-3.87 9.54-6.61Z" />
-        </svg>
-        <span>t.me/NexoDeveloper</span>
-      </a>
-    </div>
-    <p class="text-[11px] text-slate-500 glyph-text" data-glyph="LUXURY SUPPORT PORTAL">
-      ᏞᏌᏆᏌᎡᎩ ᏚᏌᏢᏢᎾᎡᎢ ᏢᎾᎡᎢᎪᏞ
-    </p>
-  </footer>
+        <!-- Non-Clickable Category Pills -->
+        <div class="flex flex-wrap items-center justify-center gap-2 max-w-sm">
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                Ꮲᴏᴄᴋᴇᴛ ᎰᎷ
+            </span>
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                Ꮶᴜᴋᴜ ᎰᎷ
+            </span>
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                ᏙɪᴅᴇᎾ
+            </span>
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                ᎪᴅᴠᎪɴᴄᴇ
+            </span>
+            <span class="px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-slate-900/90 border border-cyan-400/30 text-sky-200 glyph-text select-none">
+                Ꮀᴜʟʟ Ꮪᴇʀɪᴇs
+            </span>
+        </div>
 
-  <script>
-    /**
-     * Custom Unicode Glyph Alphabet Mapping (A-Z)
-     * Exact mapping:
-     * A:Ꭺ, B:Ᏼ, C:Ꮯ, D:Ꭰ, E:Ꭼ, F:Ꮀ, G:Ꮐ, H:Ꮋ, I:Ꮖ, J:Ꭻ, K:Ꮶ, L:Ꮮ, M:Ꮇ, N:Ꮑ,
-     * O:Ꮎ, P:Ꮲ, Q:Ⴓ, R:Ꭱ, S:Ꮪ, T:Ꭲ, U:Ꮜ, V:Ꮩ, W:Ꮃ, X:Ꮖ, Y:Ꭹ, Z:Ꮓ
-     */
-    const CUSTOM_GLYPH_MAP = {
-      A: 'Ꭺ',
-      B: 'Ᏼ',
-      C: 'Ꮯ',
-      D: 'Ꭰ',
-      E: 'Ꭼ',
-      F: 'Ꮀ',
-      G: 'Ꮐ',
-      H: 'Ꮋ',
-      I: 'Ꮖ',
-      J: 'Ꭻ',
-      K: 'Ꮶ',
-      L: 'Ꮮ',
-      M: 'Ꮇ',
-      N: 'Ꮑ',
-      O: 'Ꮎ',
-      P: 'Ꮲ',
-      Q: 'Ⴓ',
-      R: 'Ꭱ',
-      S: 'Ꮪ',
-      T: 'Ꭲ',
-      U: 'Ꮜ',
-      V: 'Ꮩ',
-      W: 'Ꮃ',
-      X: 'Ꮖ',
-      Y: 'Ꭹ',
-      Z: 'Ꮓ',
-    };
+        <!-- Hero Title & Subheading -->
+        <div class="space-y-2 pt-1">
+            <h1 class="font-display text-3xl sm:text-4xl font-extrabold tracking-wider text-white leading-tight glyph-text">
+                Ꮇᴀɢɪᴄ ᎰᎷ<br/>ᏚᴜᴘᴘᎾʀᴛ Ꮲᴀɢᴇ
+            </h1>
+            <p class="text-xs font-bold tracking-[0.2em] text-goldAccent uppercase glyph-text">
+                Ꮮᴜxᴜʀʏ ᏚᴛᎾʀʏ &amp; Ꮪᴇʀɪᴇs ᎪᴅᎷɪɴ
+            </p>
+            <p class="text-[11px] font-semibold tracking-widest text-cyanLuxury glyph-text">
+                Ꮲᴏᴄᴋᴇᴛ ᎰᎷ • Ꮶᴜᴋᴜ ᎰᎷ • ᏙɪᴅᴇᎾ &amp; Ꮀᴜʟʟ Ꮪᴇʀɪᴇs
+            </p>
+        </div>
 
-    function toCustomGlyph(text) {
-      if (typeof text !== 'string') return '';
-      return text
-        .split('')
-        .map((char) => {
-          const upper = char.toUpperCase();
-          return Object.prototype.hasOwnProperty.call(CUSTOM_GLYPH_MAP, upper)
-            ? CUSTOM_GLYPH_MAP[upper]
-            : char;
-        })
-        .join('');
-    }
+        <!-- Primary CTA Card -->
+        <div class="glass-card w-full rounded-3xl p-6 space-y-5 text-center">
+            <p class="text-sm text-slate-300 leading-relaxed">
+                Exclusive <span class="text-goldAccent font-semibold">Ꮇᴀɢɪᴄ ᎰᎷ</span> collection featuring full Pocket FM story libraries (including Tamil stories &amp; complete series), Kuku FM stories, dedicated video service, advance episodes and VIP full-series luxury packs.
+            </p>
 
-    function applyPageGlyphs() {
-      try {
-        document.querySelectorAll('[data-glyph]').forEach((el) => {
-          const raw = el.getAttribute('data-glyph') || '';
-          el.textContent = toCustomGlyph(raw);
+            <a href="https://t.me/SilentKingKiller" target="_blank" rel="noopener noreferrer" class="btn-telegram w-full py-4 px-6 rounded-2xl flex items-center justify-center gap-3 text-white font-bold text-sm tracking-wider shadow-lg">
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                <span class="glyph-text">ᏟᎾɴᴛᴀᴄᴛ ᎪᴅᎷɪɴ Ꮎɴ ᎢᴇʟᴇɢʀᴀᎷ</span>
+            </a>
+
+            <div class="text-xs text-slate-400 font-medium">
+                @SilentKingKiller
+            </div>
+        </div>
+
+        <!-- Section 1: Magic FM Pocket FM Stories -->
+        <section class="glass-card w-full rounded-3xl p-6 text-left space-y-4">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                Ꮇᴀɢɪᴄ ᎰᎷ Ꮲᴏᴄᴋᴇᴛ ᎰᎷ ᏚᴛᎾʀɪᴇs
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-amber-500/10 border border-amber-400/30 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-cyan-500/15 border border-cyan-400/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    ᎢᴀᎷɪʟ &amp; Ꮀᴜʟʟ Ꮪᴇʀɪᴇs
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Complete Pocket FM story vault from a <span class="text-goldAccent font-semibold">trusted seller</span> including popular <span class="text-white font-medium">Tamil stories</span>, binge-worthy romance, thriller, action, and drama titles delivered in clean full-series packs.
+            </p>
+
+            <!-- Inner Sub-Cards -->
+            <div class="space-y-3 pt-1">
+                <div class="rounded-2xl bg-slate-950/75 border border-slate-800/90 p-4 space-y-1">
+                    <h3 class="text-xs font-bold text-white tracking-wider glyph-text">
+                        ᎢᴀᎷɪʟ ᏚᴛᎾʀʏ Ꮩᴀᴜʟᴛ
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Handpicked Tamil Pocket FM stories &amp; full series bundles ready for instant access.
+                    </p>
+                </div>
+                <div class="rounded-2xl bg-slate-950/75 border border-slate-800/90 p-4 space-y-1">
+                    <h3 class="text-xs font-bold text-white tracking-wider glyph-text">
+                        ᏟᎾᎷᴘʟᴇᴛᴇ Ꮲᴏᴄᴋᴇᴛ Ꮮɪʙʀᴀʀʏ
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Multi-genre Pocket FM stories with organized episode flow and fast Telegram delivery.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Kuku FM Story Catalog -->
+        <section class="glass-card w-full rounded-3xl p-6 text-left space-y-3.5">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                Ꮶᴜᴋᴜ ᎰᎷ ᏚᴛᎾʀʏ Ꮯᴀᴛᴀʟᴏɢ
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-amber-500/10 border border-amber-400/30 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-cyan-500/15 border border-cyan-400/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    Ꭺᴜᴅɪᴏ Ꮪᴇʀɪᴇs
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Premium Kuku FM story collection from a <span class="text-goldAccent font-semibold">trusted seller</span> featuring gripping mysteries, suspense dramas, fantasy sagas, and full-length audio runs available via direct admin order.
+            </p>
+        </section>
+
+        <!-- Section 3: Video Service -->
+        <section class="glass-card w-full rounded-3xl p-6 text-left space-y-3.5">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                ᏙɪᴅᴇᎾ Ꮪᴇʀᴠɪᴄᴇ
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-amber-500/10 border border-amber-400/30 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-cyan-500/15 border border-cyan-400/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    Ꮩɪᴘ ᏚᴛʀᴇᴀᎷ &amp; Ꮯʟɪᴘs
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Trusted seller video service offering curated visual releases, special video compilations, and priority custom requests handled personally by <span class="text-white font-medium">@SilentKingKiller</span>.
+            </p>
+        </section>
+
+        <!-- Section 4: Advance Episodes -->
+        <section class="glass-card w-full rounded-3xl p-6 text-left space-y-3.5">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                ᎪᴅᴠᎪɴᴄᴇ ᎬᴘɪsᎾᴅᴇs
+            </h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-amber-500/10 border border-amber-400/30 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-cyan-500/15 border border-cyan-400/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    Ꭼᴀʀʟʏ Ꭺᴄᴄᴇss
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Stay ahead of regular drops with trusted seller advance episodes on trending series—no waiting around for delayed releases when you want the next twist right away.
+            </p>
+        </section>
+
+        <!-- Section 5: Full Series & Extra Luxury -->
+        <section class="gold-card w-full rounded-3xl p-6 text-left space-y-4">
+            <h2 class="text-lg font-bold text-goldAccent tracking-wide glyph-text">
+                Ꮀᴜʟʟ Ꮪᴇʀɪᴇs &amp; Ꭼxᴛʀᴀ Ꮮᴜxᴜʀʏ
+            </h2>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full bg-cyanLuxury/15 border border-cyanLuxury/35 px-3 py-0.5 text-[11px] font-semibold text-cyanLuxury glyph-text select-none">
+                    Ꭲʀᴜsᴛᴇᴅ Ꮪᴇʟʟᴇʀ
+                </span>
+                <span class="rounded-full bg-amber-500/15 border border-amber-400/40 px-3 py-0.5 text-[11px] font-semibold text-goldAccent glyph-text select-none">
+                    Ꭱᴏʏᴀʟ Ᏼᴜɴᴅʟᴇs
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Every trusted seller full series bundle comes upgraded with <span class="text-goldAccent font-semibold">extra luxury perks</span>—complete episode chains, bonus extras, priority VIP support, and bundle pricing when ordering full series or multi-pack combinations.
+            </p>
+
+            <!-- Order Box -->
+            <div class="rounded-2xl bg-slate-950/80 border border-amber-400/25 p-5 space-y-4 mt-2">
+                <div class="space-y-1">
+                    <h3 class="text-xs font-bold text-white tracking-wider glyph-text">
+                        Ꮤᴀɴᴛ Ꮀᴜʟʟ Ꮪᴇʀɪᴇs Ꮎʀ ᏟᴜsᴛᴏᎷ Ꮲᴀᴄᴋ?
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Message the admin directly on Telegram with your story or episode request.
+                    </p>
+                </div>
+
+                <a href="https://t.me/SilentKingKiller" target="_blank" rel="noopener noreferrer" class="btn-telegram w-full py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs tracking-widest">
+                    <span class="glyph-text">Ꮎʀᴅᴇʀ ɴᎾᴡ</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="w-full pt-4 pb-8 text-center space-y-2 border-t border-slate-800/70">
+            <p class="text-[11px] text-slate-400 font-medium tracking-wider glyph-text">
+                © 2026 Ꮇᴀɢɪᴄ ᎰᎷ ᏚᴜᴘᴘᎾʀᴛ Ꮲᴀɢᴇ
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400">
+                <span class="glyph-text">Ꭰᴇᴠᴇʟᴏᴘᴇᴅ Ᏼʏ ɴᴇxᎾ</span>
+                <a href="https://t.me/NexoDeveloper" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-400/35 text-sky-300 hover:bg-sky-500/25 transition font-medium">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                    </svg>
+                    <span>t.me/NexoDeveloper</span>
+                </a>
+            </div>
+            <p class="text-[10px] text-slate-500 tracking-widest uppercase glyph-text">
+                Ꮮᴜxᴜʀʏ ᏚᴜᴘᴘᎾʀᴛ Ꮲᴏʀᴛᴀʟ
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Web Audio API Ambient Melody Engine -->
+    <script>
+        let audioCtx = null;
+        let isPlaying = false;
+        let melodyInterval = null;
+
+        const notes = [261.63, 329.63, 392.00, 493.88, 523.25, 392.00, 329.63, 293.66];
+        let step = 0;
+
+        function playPadNote(freq) {
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.035, now + 0.6);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.4);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + 2.5);
+        }
+
+        function startMelody() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            isPlaying = true;
+            document.getElementById('eqContainer').classList.add('playing');
+            document.getElementById('melodyStatus').textContent = 'Playing background song';
+            playPadNote(notes[step % notes.length]);
+            step++;
+            melodyInterval = setInterval(() => {
+                if (isPlaying) {
+                    playPadNote(notes[step % notes.length]);
+                    step++;
+                }
+            }, 1800);
+        }
+
+        function stopMelody() {
+            isPlaying = false;
+            clearInterval(melodyInterval);
+            document.getElementById('eqContainer').classList.remove('playing');
+            document.getElementById('melodyStatus').textContent = 'Background melody paused';
+        }
+
+        function toggleMelody() {
+            if (isPlaying) {
+                stopMelody();
+            } else {
+                startMelody();
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const unlockAudio = () => {
+                if (!isPlaying) {
+                    startMelody();
+                }
+                document.removeEventListener('click', unlockAudio);
+                document.removeEventListener('touchstart', unlockAudio);
+            };
+            document.addEventListener('click', unlockAudio, { once: true });
+            document.addEventListener('touchstart', unlockAudio, { once: true });
         });
-      } catch (err) {
-        console.error('Glyph rendering error:', err);
-      }
-    }
-
-    /**
-     * Web Audio API Gentle Melodic & Ambient Song Engine
-     * Attempts immediate playback on load/entry, and automatically unlocks
-     * on first touch/click/key if browser autoplay policy suspends AudioContext.
-     */
-    class LuxuryAmbientSong {
-      constructor() {
-        this.ctx = null;
-        this.masterGain = null;
-        this.isPlaying = false;
-        this.userMuted = false;
-        this.loopTimer = null;
-        this.stepIndex = 0;
-
-        this.melodyNotes = [
-          293.66, // D4
-          369.99, // F#4
-          440.00, // A4
-          587.33, // D5
-          493.88, // B4
-          369.99, // F#4
-          329.63, // E4
-          440.00, // A4
-        ];
-
-        this.chordRoots = [146.83, 146.83, 123.47, 110.00]; // D3, D3, B2, A2
-      }
-
-      ensureContext() {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return null;
-
-        if (!this.ctx) {
-          this.ctx = new AudioCtx();
-          this.masterGain = this.ctx.createGain();
-          this.masterGain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
-          this.masterGain.connect(this.ctx.destination);
-        }
-        return this.ctx;
-      }
-
-      playPluckNote(freq, duration = 1.1, peakGain = 0.045) {
-        if (!this.ctx || !this.masterGain || this.ctx.state !== 'running') return;
-
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const subOsc = this.ctx.createOscillator();
-        const filter = this.ctx.createBiquadFilter();
-        const noteGain = this.ctx.createGain();
-
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, now);
-
-        subOsc.type = 'sine';
-        subOsc.frequency.setValueAtTime(freq * 0.5, now);
-
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(1400, now);
-        filter.frequency.exponentialRampToValueAtTime(420, now + duration);
-
-        noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(peakGain, now + 0.04);
-        noteGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-        osc.connect(filter);
-        subOsc.connect(filter);
-        filter.connect(noteGain);
-        noteGain.connect(this.masterGain);
-
-        osc.start(now);
-        subOsc.start(now);
-        osc.stop(now + duration + 0.03);
-        subOsc.stop(now + duration + 0.03);
-      }
-
-      playPadChord(rootFreq, duration = 2.4) {
-        if (!this.ctx || !this.masterGain || this.ctx.state !== 'running') return;
-
-        const now = this.ctx.currentTime;
-        const intervals = [1, 1.5];
-        intervals.forEach((mult) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(rootFreq * mult, now);
-
-          gain.gain.setValueAtTime(0.0001, now);
-          gain.gain.linearRampToValueAtTime(0.022, now + 0.45);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-          osc.connect(gain);
-          gain.connect(this.masterGain);
-
-          osc.start(now);
-          osc.stop(now + duration + 0.05);
-        });
-      }
-
-      startSequencer() {
-        this.stopSequencer();
-        this.stepIndex = 0;
-
-        const tick = () => {
-          if (!this.isPlaying || this.userMuted || !this.ctx || this.ctx.state !== 'running') {
-            return;
-          }
-          const note = this.melodyNotes[this.stepIndex % this.melodyNotes.length];
-          this.playPluckNote(note, 1.05, 0.05);
-
-          if (this.stepIndex % 2 === 0) {
-            const chordRoot = this.chordRoots[Math.floor(this.stepIndex / 2) % this.chordRoots.length];
-            this.playPadChord(chordRoot, 2.3);
-          }
-
-          this.stepIndex += 1;
-        };
-
-        tick();
-        this.loopTimer = window.setInterval(tick, 620);
-      }
-
-      stopSequencer() {
-        if (this.loopTimer) {
-          clearInterval(this.loopTimer);
-          this.loopTimer = null;
-        }
-      }
-
-      async attemptAutoPlay() {
-        if (this.userMuted) return false;
-        const ctx = this.ensureContext();
-        if (!ctx) return false;
-
-        try {
-          if (ctx.state === 'suspended') {
-            await ctx.resume();
-          }
-          if (ctx.state === 'running') {
-            this.masterGain.gain.cancelScheduledValues(ctx.currentTime);
-            this.masterGain.gain.setValueAtTime(0.0001, ctx.currentTime);
-            this.masterGain.gain.linearRampToValueAtTime(0.75, ctx.currentTime + 0.35);
-            this.isPlaying = true;
-            this.startSequencer();
-            updateAudioUI(true, 'Playing background song');
-            return true;
-          }
-        } catch (err) {
-          // Expected when browser blocks instant ungestured audio
-        }
-
-        this.isPlaying = false;
-        updateAudioUI(false, 'Tap anywhere to start song');
-        return false;
-      }
-
-      async togglePlayMute() {
-        const ctx = this.ensureContext();
-        if (!ctx) return;
-
-        if (this.isPlaying && !this.userMuted) {
-          this.userMuted = true;
-          this.isPlaying = false;
-          this.stopSequencer();
-          if (this.masterGain) {
-            this.masterGain.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.08);
-          }
-          updateAudioUI(false, 'Song muted');
-        } else {
-          this.userMuted = false;
-          if (ctx.state === 'suspended') {
-            await ctx.resume();
-          }
-          if (this.masterGain) {
-            this.masterGain.gain.setTargetAtTime(0.75, ctx.currentTime, 0.12);
-          }
-          this.isPlaying = true;
-          this.startSequencer();
-          updateAudioUI(true, 'Playing background song');
-        }
-      }
-    }
-
-    const songEngine = new LuxuryAmbientSong();
-
-    function updateAudioUI(playing, hintMessage) {
-      const statusEl = document.getElementById('audioStatusGlyph');
-      const hintEl = document.getElementById('audioHintText');
-      if (statusEl) {
-        const label = playing ? 'MELODY ON' : 'MELODY OFF';
-        statusEl.setAttribute('data-glyph', label);
-        statusEl.textContent = toCustomGlyph(label);
-      }
-      if (hintEl && hintMessage) {
-        hintEl.textContent = hintMessage;
-      }
-    }
-
-    function bindFirstGestureUnlock() {
-      const unlockOnce = async () => {
-        if (!songEngine.isPlaying && !songEngine.userMuted) {
-          await songEngine.attemptAutoPlay();
-        }
-        if (songEngine.isPlaying || songEngine.userMuted) {
-          document.removeEventListener('pointerdown', unlockOnce);
-          document.removeEventListener('touchstart', unlockOnce);
-          document.removeEventListener('keydown', unlockOnce);
-        }
-      };
-
-      document.addEventListener('pointerdown', unlockOnce, { passive: true });
-      document.addEventListener('touchstart', unlockOnce, { passive: true });
-      document.addEventListener('keydown', unlockOnce);
-    }
-
-    function initInteractiveUI() {
-      const audioBtn = document.getElementById('audioToggleBtn');
-      if (audioBtn) {
-        audioBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          songEngine.togglePlayMute();
-        });
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      applyPageGlyphs();
-      initInteractiveUI();
-      bindFirstGestureUnlock();
-      songEngine.attemptAutoPlay();
-    });
-
-    window.addEventListener('load', () => {
-      if (!songEngine.isPlaying && !songEngine.userMuted) {
-        songEngine.attemptAutoPlay();
-      }
-    });
-  </script>
+    </script>
 </body>
 </html>
